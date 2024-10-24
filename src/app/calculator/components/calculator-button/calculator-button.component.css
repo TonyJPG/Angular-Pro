@@ -1,0 +1,27 @@
+button {
+  @apply w-full h-16 outline-none focus:outline-none hover:bg-indigo-700 hover:bg-opacity-20 text-white text-xl font-light;
+}
+
+:host.is-command > button {
+  @apply bg-indigo-700 bg-opacity-10;
+}
+
+:host.text-transparent > button {
+  @apply text-opacity-50;
+}
+
+:host.bigger-text > button {
+  @apply text-2xl;
+}
+
+:host.last-row {
+  @apply border-b-0;
+}
+
+:host.is-equal-btn {
+  @apply w-2/4;
+}
+
+:host.is-equal-btn > button {
+  @apply bg-opacity-30 hover:bg-opacity-40;
+}
