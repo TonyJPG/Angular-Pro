@@ -2,26 +2,18 @@ button {
   @apply w-full h-16 outline-none focus:outline-none hover:bg-indigo-700 hover:bg-opacity-20 text-white text-xl font-light;
 }
 
-:host.is-command > button {
+:host.is-operator-key > button {
   @apply bg-indigo-700 bg-opacity-10;
 }
 
-:host.text-transparent > button {
-  @apply text-opacity-50;
-}
-
-:host.bigger-text > button {
-  @apply text-2xl;
-}
-
-:host.last-row {
-  @apply border-b-0;
-}
-
-:host.is-equal-btn {
+:host.is-equal-key {
   @apply w-2/4;
 }
 
-:host.is-equal-btn > button {
+:host.is-equal-key > button {
   @apply bg-opacity-30 hover:bg-opacity-40;
+}
+
+.is-pressed {
+  @apply bg-indigo-800 bg-opacity-50 !important;
 }
