@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 
 const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const operators = ['+', '-', '*', '/'];
+const operators = ['+', '-', '*', '⨉', '/', '÷'];
 const specialOperators = ['C', '+/-', '%', '.', '=', 'backspace'];
 
 @Injectable({
@@ -55,9 +55,51 @@ export class CalculatorService {
       return;
     }
 
+    // limitar numeros de caracteres
+    if (this.resultText().length >= 8) {
+      console.log('Max length reached');
+      return;
+    }
+
     //validar punto decimal
-    if (value === '.' && !this.resultText().includes('.')) {
-      this.resultText.update((prevValue) => prevValue + '.');
+    if (value === '.') {
+      if (!this.resultText().includes('.')) {
+        this.resultText.update((prevValue) => prevValue + '.');
+        return;
+      }
+      return;
+    }
+
+    //manejo del cero inicial
+    if (
+      value === '0' &&
+      (this.resultText() === '0' || this.resultText() === '-0')
+    ) {
+      return;
+    }
+
+    //cambiar de signo
+    if (value === '+/-') {
+      console.log('es mas menos');
+      if (this.resultText().includes('-')) {
+        this.resultText.update((prevValue) => prevValue.slice(1));
+        return;
+      }
+      this.resultText.update((prevValue) => '-' + prevValue);
+      return;
+    }
+
+    //numeros (ultima condición)
+    if (numbers.includes(value)) {
+      if (this.resultText() === '0') {
+        this.resultText.set(value);
+      }
+
+      if (this.resultText() === '-0') {
+        this.resultText.set('-' + value);
+      }
+
+      this.resultText.update((prevValue) => prevValue + value);
       return;
     }
   }
