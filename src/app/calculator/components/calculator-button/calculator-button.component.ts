@@ -44,7 +44,7 @@ export class CalculatorButtonComponent {
     this.btnClicked.emit(value.trim());
   }
 
-  keyboardPressedStyle(key: string) {
+  keyboardPressedStyle(key: string): void {
     if (!this.buttonRef()) return;
 
     const value = this.buttonRef()!.nativeElement.innerText;

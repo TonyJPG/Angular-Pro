@@ -30,12 +30,12 @@ export class CalculatorComponent {
   handleKeyboardEvent(event: KeyboardEvent) {
     const keyEquivalents: Record<string, string> = {
       c: 'C',
-      Backspace: 'C',
       Delete: 'C',
       Escape: 'C',
       '/': '÷',
       '*': '⨉',
       x: '⨉',
+      X: '⨉',
       Enter: '=',
     };
 
