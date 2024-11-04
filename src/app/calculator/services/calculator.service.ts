@@ -12,7 +12,7 @@ export class CalculatorService {
   public subResultText = signal('0');
   public lastOperator = signal('+');
 
-  public constructNumber(value: string): void {
+  public handleKeyInputValue(value: string): void {
     //validar input
     if (![...numbers, ...operators, ...specialOperators].includes(value)) {
       console.log('Invalid input', value);
