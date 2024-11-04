@@ -28,7 +28,6 @@ describe('CalculatorService', () => {
     expect(service.lastOperator()).toBe('+');
   });
 
-  //qodo test
   it('should handle key input correctly', () => {
     service.handleKeyInputValue('5');
     expect(service.resultText()).toBe('5');
@@ -36,7 +35,6 @@ describe('CalculatorService', () => {
     expect(service.resultText()).toBe('58');
   });
 
-  //codeium test
   it('should calculate result correctly for addition', () => {
     service.handleKeyInputValue('2');
     service.handleKeyInputValue('+');
@@ -69,6 +67,10 @@ describe('CalculatorService', () => {
     expect(service.resultText()).toBe('4');
   });
 
+  it('handle the % operator', () => {
+    //TODO: add implementation
+  });
+
   it('should handle decimal points correctly', () => {
     service.handleKeyInputValue('6');
     service.handleKeyInputValue('.');
@@ -90,7 +92,6 @@ describe('CalculatorService', () => {
     expect(service.resultText()).toBe('0.5');
   });
 
-  //codeium test
   it('should reset calculator state to default values when C is pressed', () => {
     service.handleKeyInputValue('5');
     service.handleKeyInputValue('+');
@@ -109,5 +110,93 @@ describe('CalculatorService', () => {
     expect(service.subResultText()).toBe('5');
     expect(service.lastOperator()).toBe('-');
     expect(service.resultText()).toBe('0');
+  });
+
+  it('should handle sign change correctly', () => {
+    service.handleKeyInputValue('7');
+    service.handleKeyInputValue('+/-');
+
+    expect(service.resultText()).toBe('-7');
+
+    service.handleKeyInputValue('+/-');
+    expect(service.resultText()).toBe('7');
+  });
+
+  it('should handle backspace correctly', () => {
+    service.handleKeyInputValue('5');
+    service.handleKeyInputValue('8');
+    service.handleKeyInputValue('9');
+    expect(service.resultText()).toBe('589');
+
+    service.handleKeyInputValue('Backspace');
+    expect(service.resultText()).toBe('58');
+
+    service.handleKeyInputValue('Backspace');
+    expect(service.resultText()).toBe('5');
+
+    service.handleKeyInputValue('Backspace');
+    expect(service.resultText()).toBe('0');
+  });
+
+  it('handle backspace when result is 0', () => {
+    service.handleKeyInputValue('0');
+    service.handleKeyInputValue('Backspace');
+    expect(service.resultText()).toBe('0');
+  });
+
+  it('handle backspace when result is negative and has only 1 digit', () => {
+    service.handleKeyInputValue('7');
+    service.handleKeyInputValue('+/-');
+    expect(service.resultText()).toBe('-7');
+    expect(service.resultText().length).toBe(2);
+
+    service.handleKeyInputValue('Backspace');
+    expect(service.resultText()).toBe('0');
+  });
+
+  it('should handle maximum input length', () => {
+    for (let i = 0; i < 20; i++) {
+      service.handleKeyInputValue('9');
+    }
+    expect(service.resultText()).toBe('99999999');
+  });
+
+  it('should handle maximum result length', () => {
+    for (let i = 0; i < 20; i++) {
+      service.handleKeyInputValue('9');
+    }
+
+    expect(service.resultText()).toBe('99999999');
+    expect(service.resultText().length).toBe(8);
+
+    service.handleKeyInputValue('+');
+    service.handleKeyInputValue('9');
+    service.handleKeyInputValue('=');
+
+    expect(service.resultText()).toBe('10000000');
+    expect(service.resultText().length).toBe(8);
+  });
+
+  it('handle invalid input', () => {
+    service.handleKeyInputValue('a');
+    expect(service.resultText()).toBe('0');
+  });
+
+  it('handle negative zero', () => {
+    service.handleKeyInputValue('0');
+    service.handleKeyInputValue('+/-');
+    expect(service.resultText()).toBe('-0');
+
+    service.handleKeyInputValue('0');
+    expect(service.resultText()).toBe('-0');
+  });
+
+  it('add number when there is a negative zero', () => {
+    service.handleKeyInputValue('0');
+    service.handleKeyInputValue('+/-');
+    expect(service.resultText()).toBe('-0');
+
+    service.handleKeyInputValue('5');
+    expect(service.resultText()).toBe('-5');
   });
 });
