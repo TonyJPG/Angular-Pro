@@ -38,4 +38,23 @@ describe(`CalculatorButtonComponent`, () => {
     expect(component.isEqualKey()).toBeTrue();
     expect(hostCssClasses).toContain('is-equal-key');
   });
+
+  it('should emit btnClicked when handleClick is called', () => {
+    spyOn(component.btnClicked, 'emit');
+    component.handleClick();
+
+    expect(component.btnClicked.emit).toHaveBeenCalled();
+  });
+
+  it('should set isPressed to true and then to false when keyboardPressedStyle is called', (done) => {
+    component.buttonRef()!.nativeElement.innerText = '1';
+    component.keyboardPressedStyle('1');
+
+    expect(component.isPressed()).toBeTrue();
+
+    setTimeout(() => {
+      expect(component.isPressed()).toBeFalse();
+      done();
+    }, 101);
+  });
 });
