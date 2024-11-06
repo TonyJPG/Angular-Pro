@@ -43,7 +43,6 @@ describe(`CalculatorComponent`, () => {
   });
 
   it('should create the app', () => {
-    console.log('compiled', compiled);
     expect(component).toBeTruthy();
   });
 
@@ -109,5 +108,27 @@ describe(`CalculatorComponent`, () => {
     expect(buttons[16].textContent?.trim()).toBe('0');
     expect(buttons[17].textContent?.trim()).toBe('.');
     expect(buttons[18].textContent?.trim()).toBe('=');
+  });
+
+  it('should handle keyboard events', () => {
+    const enterEvent = new KeyboardEvent('keyup', { key: '=' });
+    document.dispatchEvent(enterEvent);
+    expect(mockCalculatorService.handleKeyInputValue).toHaveBeenCalledWith('=');
+
+    const EscEvent = new KeyboardEvent('keyup', { key: 'Escape' });
+    document.dispatchEvent(EscEvent);
+    expect(mockCalculatorService.handleKeyInputValue).toHaveBeenCalledWith('C');
+  });
+
+  it('should display resultText, subResultText and lastOperator from calculatorService', () => {
+    mockCalculatorService.resultText.and.returnValue('123');
+    mockCalculatorService.subResultText.and.returnValue('456');
+    mockCalculatorService.lastOperator.and.returnValue('⨉');
+    fixture.detectChanges();
+
+    expect(component.resultText()).toBe('123');
+    expect(compiled.querySelector('#sub-result')?.textContent?.trim()).toBe(
+      '456 ⨉'
+    );
   });
 });

@@ -37,4 +37,10 @@ describe(`CalculatorViewComponent`, () => {
       expect(divElement).toHaveClass(className);
     });
   });
+
+  it('should have primeng.ripple in ngOnInit', () => {
+    fixture.detectChanges();
+
+    expect(component['primengConfig'].ripple).toBeTrue();
+  });
 });

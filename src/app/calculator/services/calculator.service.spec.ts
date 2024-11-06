@@ -8,15 +8,9 @@ describe('CalculatorService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(CalculatorService);
   });
-  // beforeAll(() => {
-  //   console.log('beforeAll');
-  // });
-  // afterEach(() => {
-  //   console.log('afterEach');
-  // });
-  // afterAll(() => {
-  //   console.log('afterAll');
-  // });
+  // beforeAll(() => {});
+  // afterEach(() => {});
+  // afterAll(() => {});
 
   it('should be created', () => {
     expect(service).toBeTruthy();
