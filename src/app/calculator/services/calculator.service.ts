@@ -15,7 +15,7 @@ export class CalculatorService {
   public handleKeyInputValue(value: string): void {
     //validar input
     if (![...numbers, ...operators, ...specialOperators].includes(value)) {
-      console.log('Invalid input', value);
+      // console.log('Invalid input', value);
       return;
     }
 
@@ -67,7 +67,7 @@ export class CalculatorService {
 
     // limitar numeros de caracteres
     if (this.resultText().length >= 8) {
-      console.log('Max length reached');
+      // console.log('Max length reached');
       return;
     }
 

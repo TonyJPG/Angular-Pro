@@ -50,7 +50,7 @@ export class CalculatorComponent {
   }
 
   handleClick(key: string) {
-    console.log({ key });
+    // console.log({ key });
     this.calculatorService.handleKeyInputValue(key);
   }
 }
